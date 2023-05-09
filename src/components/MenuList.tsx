@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from "react";
 import {
   Collapse,
   List,
@@ -15,6 +15,7 @@ import {
   ExpandLess,
   AddCircleOutline,
 } from "@mui/icons-material";
+import { useRouter } from "next/router";
 import AddCategoryModal from "./category/AddCategoryModal";
 import { toSentenceCase } from "src/utils";
 import useCategories from "../hooks/useCategories";
@@ -24,8 +25,9 @@ interface MenuProps {
 }
 
 const MenuList = ({ isMenuOpen }: MenuProps) => {
+  const router = useRouter();
   const [isListOpen, setIsListOpen] = useState(true);
-  const { categories, fetchCategories, addCategory } = useCategories();
+  const { categories, addCategory } = useCategories();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const shouldExpand = isMenuOpen && isListOpen;
 
@@ -36,6 +38,10 @@ const MenuList = ({ isMenuOpen }: MenuProps) => {
   const handleAddCategory = async (categoryName: string) => {
     await addCategory(categoryName);
     setIsModalOpen(false);
+  };
+
+  const handleCreateServiceClick = () => {
+    router.push("/create-service");
   };
 
   return (
@@ -81,9 +87,7 @@ const MenuList = ({ isMenuOpen }: MenuProps) => {
           handleAddCategory={handleAddCategory}
         />
       </Collapse>
-      <ListItemButton
-        onClick={() => (window.location.href = "/create-service")}
-      >
+      <ListItemButton onClick={handleCreateServiceClick}>
         <ListItemIcon>
           <AddHome />
         </ListItemIcon>
