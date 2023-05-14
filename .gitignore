@@ -43,3 +43,6 @@ dist
 
 # data files
 /data
+
+# logo files
+/public/logos
