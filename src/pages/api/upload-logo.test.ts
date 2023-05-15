@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createMocks } from "node-mocks-http";
-import fs from "fs";
 
-describe("uploadLogo API", () => {
+describe("upload-logo API", () => {
   beforeEach(() => {
     jest.resetModules();
   });
