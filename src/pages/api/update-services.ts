@@ -30,26 +30,39 @@ const writeServices = (services: Service[]) => {
 const updateServices = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "PUT") {
     try {
-      const { id, name, url, logo } = req.body;
+      const { id, name, url, logo, categoryId } = req.body;
+
+      if (!name || !url) {
+        return res
+          .status(400)
+          .json({ message: "Name and URL are required fields" });
+      }
+
       let services = readServices();
 
       if (id) {
         services = services.map((service: Service) =>
           service.id === id
-            ? { id: id, name: name, url: url, logo: logo }
+            ? {
+                id: id,
+                name: name,
+                url: url,
+                logo: logo,
+                categoryId: categoryId,
+              }
             : service
         );
       } else {
-        const newService = { id: uuidv4(), name, url, logo };
+        const newService = { id: uuidv4(), name, url, logo, categoryId };
         services.push(newService);
       }
       writeServices(services);
-      res.status(200).json(services);
+      res.status(200).json({ message: "Service added successfully" });
     } catch (error) {
       res.status(500).json({ message: "Error updating services" });
     }
   } else {
-    res.status(405).json({ message: "Method not allowed " });
+    res.status(405).json({ message: "Method not allowed" });
   }
 };
 
