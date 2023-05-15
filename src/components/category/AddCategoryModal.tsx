@@ -66,7 +66,7 @@ const AddCategoryModal = ({
             <Button
               onClick={handleModalClose}
               variant="outlined"
-              style={{ marginRight: "8px" }}
+              style={{ marginRight: "10px" }}
             >
               Cancel
             </Button>

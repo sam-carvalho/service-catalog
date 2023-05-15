@@ -32,15 +32,14 @@ const Header = ({
         >
           <Menu />
         </IconButton>
-        <Box sx={{ flexGrow: 1 }}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: isMobile ? "flex-start" : "center",
-            }}
-          >
-            <SearchBar />
-          </Box>
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: "flex",
+            justifyContent: "flex-start",
+          }}
+        >
+          <SearchBar />
         </Box>
       </Toolbar>
     </StyledAppBar>
