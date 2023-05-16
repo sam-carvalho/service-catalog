@@ -58,7 +58,7 @@ export default function AppShell({
           flexGrow: 1,
           p: 3,
           marginTop: { xs: 5, md: 8 },
-          marginLeft: { xs: 3, md: menuWidth + 3 },
+          marginLeft: { xs: 3, md: 20 },
         }}
       >
         {children}
