@@ -30,7 +30,8 @@ const writeServices = (services: Service[]) => {
 const updateServices = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "PUT") {
     try {
-      const { id, name, url, logo, categoryId } = req.body;
+      const { id, name, url, categoryId } = req.body;
+      let { logo } = req.body;
 
       if (!name || !url) {
         return res
@@ -53,6 +54,9 @@ const updateServices = async (req: NextApiRequest, res: NextApiResponse) => {
             : service
         );
       } else {
+        if (!logo) {
+          logo = "/default.png";
+        }
         const newService = { id: uuidv4(), name, url, logo, categoryId };
         services.push(newService);
       }

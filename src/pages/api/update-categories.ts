@@ -33,6 +33,7 @@ const updateCategories = async (req: NextApiRequest, res: NextApiResponse) => {
       const categoryName = req.body.name;
       const categoryId = req.body.id;
       let categories = readCategories();
+      let newCategory = {};
 
       if (categoryId) {
         categories = categories.map((category: Category) =>
@@ -41,12 +42,12 @@ const updateCategories = async (req: NextApiRequest, res: NextApiResponse) => {
             : category
         );
       } else {
-        const newCategory = { id: uuidv4(), name: categoryName };
+        newCategory = { id: uuidv4(), name: categoryName };
         categories.push(newCategory);
       }
 
       writeCategories(categories);
-      res.status(200).json(categories);
+      res.status(200).json(newCategory);
     } catch (error) {
       res.status(500).json({ message: "Error updating categories" });
     }

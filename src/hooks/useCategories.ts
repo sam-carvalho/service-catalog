@@ -22,8 +22,9 @@ const useCategories = () => {
         },
         body: JSON.stringify({ name: categoryName }),
       });
-      const updatedCategories = await response.json();
-      setCategories(updatedCategories);
+      const newCategory = await response.json();
+      setCategories([...categories, newCategory]);
+      return newCategory;
     } catch (error) {
       console.error(error);
     }
