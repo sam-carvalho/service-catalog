@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, TextField, Box, InputLabel } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import useCategories from "src/hooks/useCategories";
-import { Category } from "src/interfaces";
+import useCategories from "../../hooks/useCategories";
+import { Category } from "../../interfaces";
 
 interface CategoryModalProps {
   isModalOpen: boolean;
@@ -71,16 +71,22 @@ const AddCategoryModal = ({
   };
 
   return (
-    <Modal open={isModalOpen} onClose={handleModalClose}>
+    <Modal
+      open={isModalOpen}
+      onClose={handleModalClose}
+      data-testid="add-category-modal"
+    >
       <Box sx={formStyle}>
         <form onSubmit={handleSave}>
           <Box sx={{ padding: 2.4, marginTop: 2 }}>
             <InputLabel
+              htmlFor="new-category-name"
               sx={{ fontSize: 14, fontWeight: "bold", color: grey[900] }}
             >
               Category name
             </InputLabel>
             <TextField
+              id="new-category-name"
               required
               fullWidth
               value={newCategoryName}
