@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Collapse,
   List,
@@ -15,7 +15,7 @@ import {
   ExpandLess,
   AddCircleOutline,
 } from "@mui/icons-material";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import AddCategoryModal from "./category/AddCategoryModal";
 import { toSentenceCase } from "src/utils";
 import useCategories from "../hooks/useCategories";
@@ -25,23 +25,17 @@ interface MenuProps {
 }
 
 const MenuList = ({ isMenuOpen }: MenuProps) => {
-  const router = useRouter();
   const [isListOpen, setIsListOpen] = useState(true);
-  const { categories, addCategory } = useCategories();
+  const { categories, fetchCategories } = useCategories();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const shouldExpand = isMenuOpen && isListOpen;
 
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
   const handleListClick = () => {
     setIsListOpen(!isListOpen);
-  };
-
-  const handleAddCategory = async (categoryName: string) => {
-    await addCategory(categoryName);
-    setIsModalOpen(false);
-  };
-
-  const handleCreateServiceClick = () => {
-    router.push("/create-service");
   };
 
   return (
@@ -58,7 +52,7 @@ const MenuList = ({ isMenuOpen }: MenuProps) => {
         <ListItemIcon>
           <Home />
         </ListItemIcon>
-        <ListItemText primary="My services" />
+        <ListItemText primary="Categories" />
         {shouldExpand ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={shouldExpand} timeout="auto" unmountOnExit>
@@ -84,14 +78,13 @@ const MenuList = ({ isMenuOpen }: MenuProps) => {
         <AddCategoryModal
           isModalOpen={isModalOpen}
           handleModalClose={() => setIsModalOpen(false)}
-          handleAddCategory={handleAddCategory}
         />
       </Collapse>
-      <ListItemButton onClick={handleCreateServiceClick}>
+      <ListItemButton>
         <ListItemIcon>
           <AddHome />
         </ListItemIcon>
-        <ListItemText primary="Add service" />
+        <Link href="/add-service">Add service</Link>
       </ListItemButton>
     </List>
   );

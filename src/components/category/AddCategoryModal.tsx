@@ -1,28 +1,42 @@
-import React, { useState } from 'react';
-import {
-  Modal,
-  Button,
-  TextField,
-  Box,
-  Divider,
-  InputLabel,
-  IconButton,
-} from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Modal, Button, TextField, Box, InputLabel } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { Close } from "@mui/icons-material";
+import useCategories from "../../hooks/useCategories";
+import { Category } from "../../interfaces";
 
 interface CategoryModalProps {
   isModalOpen: boolean;
+  isFromAutocomplete?: boolean;
+  categoryName?: string;
   handleModalClose: () => void;
-  handleAddCategory: (categoryName: string) => void;
+  setSelectedCategory?: (category: Category | null) => void;
+  setSelectedCategoryId?: (categoryId: string) => void;
 }
 
 const AddCategoryModal = ({
   isModalOpen,
+  isFromAutocomplete = false,
+  categoryName,
   handleModalClose,
-  handleAddCategory,
+  setSelectedCategory,
+  setSelectedCategoryId,
 }: CategoryModalProps) => {
-  const [newCategoryName, setNewCategoryName] = useState("");
+  const [newCategoryName, setNewCategoryName] = useState<string>("");
+  const { addCategory } = useCategories();
+
+  useEffect(() => {
+    if (categoryName) {
+      setNewCategoryName(categoryName);
+    }
+  }, [categoryName]);
+
+  const handleAddCategory = async (categoryName: string) => {
+    const newCategory = await addCategory(categoryName);
+    if (isFromAutocomplete) {
+      setSelectedCategory(newCategory);
+      setSelectedCategoryId(newCategory?.id);
+    }
+  };
 
   const handleCategoryNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -32,6 +46,7 @@ const AddCategoryModal = ({
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    event.stopPropagation();
     handleAddCategory(newCategoryName);
     setNewCategoryName("");
     handleModalClose();
@@ -46,7 +61,7 @@ const AddCategoryModal = ({
     outline: "none",
     borderRadius: "4px",
     width: 360,
-    height: 280,
+    height: 220,
   };
 
   const buttonGroupStyle = {
@@ -56,32 +71,22 @@ const AddCategoryModal = ({
   };
 
   return (
-    <Modal open={isModalOpen} onClose={handleModalClose}>
+    <Modal
+      open={isModalOpen}
+      onClose={handleModalClose}
+      data-testid="add-category-modal"
+    >
       <Box sx={formStyle}>
         <form onSubmit={handleSave}>
-          <Box>
-            <h5 style={{ margin: 18 }}>Create new category</h5>
-            <IconButton
-              aria-label="close"
-              onClick={handleModalClose}
-              sx={{
-                position: "absolute",
-                right: 7,
-                top: 8,
-                color: (theme) => theme.palette.grey[600],
-              }}
-            >
-              <Close fontSize="small" />
-            </IconButton>
-          </Box>
-          <Divider />
           <Box sx={{ padding: 2.4, marginTop: 2 }}>
             <InputLabel
+              htmlFor="new-category-name"
               sx={{ fontSize: 14, fontWeight: "bold", color: grey[900] }}
             >
               Category name
             </InputLabel>
             <TextField
+              id="new-category-name"
               required
               fullWidth
               value={newCategoryName}

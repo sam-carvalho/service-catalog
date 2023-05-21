@@ -32,7 +32,8 @@ const useServices = () => {
   const addService = async (
     serviceName: string,
     serviceUrl: string,
-    serviceLogo?: string
+    serviceLogo?: string,
+    categoryId?: string
   ) => {
     try {
       const response = await fetch("/api/update-services", {
@@ -44,6 +45,7 @@ const useServices = () => {
           name: serviceName,
           url: serviceUrl,
           logo: serviceLogo,
+          categoryId: categoryId,
         }),
       });
 

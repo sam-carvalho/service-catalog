@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Box,
   Divider,
   Toolbar,
   Drawer as MuiDrawer,
@@ -12,6 +11,7 @@ import {
 } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import Image from "next/image";
+import Link from "next/link";
 import MenuList from "./MenuList";
 import { openedMenuMixin, closedMenuMixin } from "src/utils";
 
@@ -63,7 +63,7 @@ const SideNav = ({ isMenuOpen, menuWidth, handleCloseMenu }: SideNavProps) => {
           >
             <Image src="/docker.png" alt="" width="40" height="40" />
             <Typography variant="h6" component="span" sx={{ ml: 2 }}>
-              Serverly
+              <Link href="/">Serverly</Link>
             </Typography>
           </Toolbar>
         )}
