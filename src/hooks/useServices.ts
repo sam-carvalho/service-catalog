@@ -13,22 +13,6 @@ const useServices = () => {
     }
   };
 
-  const addLogo = async (serviceLogo: File) => {
-    try {
-      const formData = new FormData();
-      formData.append("logo", serviceLogo);
-
-      const response = await fetch("/api/upload-logo", {
-        method: "POST",
-        body: formData,
-      });
-
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const addService = async (
     serviceName: string,
     serviceUrl: string,
@@ -60,7 +44,7 @@ const useServices = () => {
     fetchServices();
   }, []);
 
-  return { services, fetchServices, addService, addLogo };
+  return { services, fetchServices, addService };
 };
 
 export default useServices;

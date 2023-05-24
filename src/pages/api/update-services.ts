@@ -30,7 +30,8 @@ const writeServices = (services: Service[]) => {
 const updateServices = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "PUT") {
     try {
-      const { id, name, url, categoryId } = req.body;
+      const { id, name, categoryId } = req.body;
+      let { url } = req.body;
       let { logo } = req.body;
 
       if (!name || !url) {
@@ -57,7 +58,18 @@ const updateServices = async (req: NextApiRequest, res: NextApiResponse) => {
         if (!logo) {
           logo = "/default.png";
         }
-        const newService = { id: uuidv4(), name, url, logo, categoryId };
+
+        if (!url.startsWith("https://")) {
+          url = `https://${url}`;
+        }
+
+        const newService = {
+          id: uuidv4(),
+          name,
+          url,
+          logo,
+          categoryId,
+        };
         services.push(newService);
       }
       writeServices(services);
