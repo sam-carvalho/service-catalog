@@ -58,7 +58,7 @@ const AddService = () => {
   };
 
   return (
-    <Box border="0.5px solid #ccc" borderRadius={3} p={4} mt={4} maxWidth={672}>
+    <Box p={4} mt={4} maxWidth={672}>
       <h2 style={headingStyle}>Add Service</h2>
       <form onSubmit={handleSave}>
         <Grid container spacing={2} display="flex" alignItems="center">
