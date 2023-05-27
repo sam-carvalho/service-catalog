@@ -1,23 +1,21 @@
 import React from 'react';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 
-const Search = styled("div")(({ theme }) => ({
+const Search = styled(Paper)(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: 250,
+  display: 'flex',
+  alignItems: 'center',
+  width: 350,
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
     width: "auto",
   },
-  border: `1px solid #ddd`,
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -38,23 +36,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "70ch",
+      width: "20ch",
     },
   },
 }));
 
 const SearchBar = () => {
     return (
-      <Search data-testid="search-bar">
-        <SearchIconWrapper data-testid="search-icon">
-          <SearchIcon color="action" />
+      <Search elevation={0} component="form">
+        <SearchIconWrapper>
+          <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
           fullWidth
-          placeholder="Search"
+          placeholder="Start your search"
           inputProps={{ "aria-label": "search" }}
-          data-testid="search-input"
-          type="search"
         />
       </Search>
     );
