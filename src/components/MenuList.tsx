@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Collapse,
   List,
@@ -20,7 +20,7 @@ import Link from "next/link";
 import AddCategoryModal from "./category/AddCategoryModal";
 import PinnedDialog from "./pinned/PinnedDialog";
 import { toSentenceCase } from "../utils";
-import useCategories from "../hooks/useCategories";
+import { useCategory } from "../context/categories/CategoriesProvider";
 
 interface MenuProps {
   isMenuOpen: boolean;
@@ -28,14 +28,10 @@ interface MenuProps {
 
 const MenuList = ({ isMenuOpen }: MenuProps) => {
   const [isListOpen, setIsListOpen] = useState(true);
-  const { categories, fetchCategories } = useCategories();
+  const { categories } = useCategory();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [isPinnedDialogOpen, setIsPinnedDialogOpen] = useState(false);
   const shouldExpand = isMenuOpen && isListOpen;
-
-  useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
 
   const handleListClick = () => {
     setIsListOpen(!isListOpen);

@@ -13,7 +13,7 @@ import {
   DialogActions,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import { usePinServices } from "../../context/PinnedServices/PinnedServicesProvider";
+import { usePinServices } from "../../context/pinnedServices/PinnedServicesProvider";
 import usePinnedServices from "../../hooks/usePinnedServices";
 import useServices from "../../hooks/useServices";
 import { Service } from "../../interfaces";
@@ -29,7 +29,7 @@ const PinnedDialog = ({
 }: PinnedDialogProps) => {
   const [selectedServices, setSelectedServices] = useState<Service[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const { pinnedServices } = usePinServices();
+  const { pinnedServices, setPinnedServices } = usePinServices();
   const { addPinnedService } = usePinnedServices();
   const { services } = useServices();
 
@@ -48,9 +48,10 @@ const PinnedDialog = ({
     }
   };
 
-  const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    addPinnedService(selectedServices ? selectedServices : []);
+    await addPinnedService(selectedServices ? selectedServices : []);
+    setPinnedServices(selectedServices ? selectedServices : []);
     setSelectedServices([]);
     handleDialogClose();
   };

@@ -7,13 +7,12 @@ import {
   CardActionArea,
   Typography,
 } from "@mui/material";
-import useCategories from "../hooks/useCategories";
 import useServices from "../hooks/useServices";
-import { usePinServices } from "../context/PinnedServices/PinnedServicesProvider";
+import { usePinServices, useCategory } from "../context";
 import PinnedGrid from "./pinned/PinnedGrid";
 
 const ServicesGrid = () => {
-  const { categories, fetchCategories } = useCategories();
+  const { categories } = useCategory();
   const { services } = useServices();
   const { pinnedServices } = usePinServices();
 

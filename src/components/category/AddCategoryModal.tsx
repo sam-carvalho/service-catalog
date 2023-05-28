@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, TextField, Box, InputLabel } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import useCategories from "../../hooks/useCategories";
+import { useCategory } from "../../context/categories/CategoriesProvider";
 import { Category } from "../../interfaces";
 
 interface CategoryModalProps {
@@ -22,7 +23,8 @@ const AddCategoryModal = ({
   setSelectedCategoryId,
 }: CategoryModalProps) => {
   const [newCategoryName, setNewCategoryName] = useState<string>("");
-  const { addCategory } = useCategories();
+  const { addCategory, fetchCategories } = useCategories();
+  const { setCategories } = useCategory();
 
   useEffect(() => {
     if (categoryName) {
@@ -36,6 +38,8 @@ const AddCategoryModal = ({
       setSelectedCategory(newCategory);
       setSelectedCategoryId(newCategory?.id);
     }
+    const updatedCategories = await fetchCategories();
+    setCategories(updatedCategories);
   };
 
   const handleCategoryNameChange = (

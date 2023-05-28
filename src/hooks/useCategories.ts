@@ -1,16 +1,7 @@
-import { useEffect, useState } from "react";
-
 const useCategories = () => {
-  const [categories, setCategories] = useState([]);
-
   const fetchCategories = async () => {
     const response = await fetch("/api/categories", { method: "GET" });
-    const categories = await response.json();
-    if (!categories.message) {
-      setCategories(categories);
-    } else {
-      console.error(categories.message);
-    }
+    return await response.json();
   };
 
   const addCategory = async (categoryName: string) => {
@@ -23,18 +14,13 @@ const useCategories = () => {
         body: JSON.stringify({ name: categoryName }),
       });
       const newCategory = await response.json();
-      setCategories([...categories, newCategory]);
       return newCategory;
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  return { categories, fetchCategories, addCategory };
+  return { fetchCategories, addCategory };
 };
 
 export default useCategories;

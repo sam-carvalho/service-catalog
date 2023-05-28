@@ -20,7 +20,7 @@ export const PinnedServicesProvider: React.FC<PinnedServicesProviderProps> = ({
     };
 
     initializePinnedServices();
-  }, [fetchPinnedServices]);
+  }, []);
 
   return (
     <PinnedServicesContext.Provider
