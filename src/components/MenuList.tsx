@@ -19,6 +19,7 @@ import {
 import Link from "next/link";
 import AddCategoryModal from "./category/AddCategoryModal";
 import PinnedDialog from "./pinned/PinnedDialog";
+import ServiceDialog from "./service/ServiceDialog";
 import { toSentenceCase } from "../utils";
 import { useCategory } from "../context";
 
@@ -31,6 +32,7 @@ const MenuList = ({ isMenuOpen }: MenuProps) => {
   const { categories } = useCategory();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [isPinnedDialogOpen, setIsPinnedDialogOpen] = useState(false);
+  const [isServiceDialogOpen, setIsServiceDialogOpen] = useState(false);
   const shouldExpand = isMenuOpen && isListOpen;
 
   const handleListClick = () => {
@@ -79,12 +81,16 @@ const MenuList = ({ isMenuOpen }: MenuProps) => {
           handleModalClose={() => setIsCategoryModalOpen(false)}
         />
       </Collapse>
-      <ListItemButton>
+      <ListItemButton onClick={() => setIsServiceDialogOpen(true)}>
         <ListItemIcon>
           <AddHome />
         </ListItemIcon>
-        <Link href="/add-service">Add service</Link>
+        <ListItemText primary="Add service" />
       </ListItemButton>
+      <ServiceDialog
+        isDialogOpen={isServiceDialogOpen}
+        handleDialogClose={() => setIsServiceDialogOpen(false)}
+      />
       <ListItemButton onClick={() => setIsPinnedDialogOpen(true)}>
         <ListItemIcon>
           <PushPin />

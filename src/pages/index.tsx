@@ -1,5 +1,5 @@
 import React from "react";
-import ServicesGrid from "../components/ServicesGrid";
+import ServicesGrid from "../components/service/ServicesGrid";
 import PinnedGrid from "../components/pinned/PinnedGrid";
 
 const Home = () => {

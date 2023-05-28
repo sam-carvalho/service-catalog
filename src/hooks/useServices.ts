@@ -1,18 +1,4 @@
-import { useEffect, useState } from "react";
-
 const useServices = () => {
-  const [services, setServices] = useState([]);
-
-  const fetchServices = async () => {
-    const response = await fetch("/api/services", { method: "GET" });
-    const services = await response.json();
-    if (!services.message) {
-      setServices(services);
-    } else {
-      console.error(services.message);
-    }
-  };
-
   const addService = async (
     serviceName: string,
     serviceUrl: string,
@@ -33,18 +19,13 @@ const useServices = () => {
         }),
       });
 
-      const updatedServices = await response.json();
-      setServices(updatedServices);
+      return await response.json();
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    fetchServices();
-  }, []);
-
-  return { services, fetchServices, addService };
+  return { addService };
 };
 
 export default useServices;
