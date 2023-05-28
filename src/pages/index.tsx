@@ -1,11 +1,8 @@
 import React from "react";
+import ServicesGrid from "../components/ServicesGrid";
 
 const Home = () => {
-  return (
-    <div>
-      <p>Hello World</p>
-    </div>
-  );
+  return <ServicesGrid />;
 };
 
 export default Home;

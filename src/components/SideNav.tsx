@@ -13,7 +13,7 @@ import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
 import MenuList from "./MenuList";
-import { openedMenuMixin, closedMenuMixin } from "src/utils";
+import { openedMenuMixin, closedMenuMixin } from "../utils";
 
 interface DrawerProps extends MuiDrawerProps {
   isMenuOpen: boolean;

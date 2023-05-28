@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Collapse,
   List,
@@ -14,11 +14,13 @@ import {
   ExpandMore,
   ExpandLess,
   AddCircleOutline,
+  PushPin,
 } from "@mui/icons-material";
 import Link from "next/link";
 import AddCategoryModal from "./category/AddCategoryModal";
-import { toSentenceCase } from "src/utils";
-import useCategories from "../hooks/useCategories";
+import PinnedDialog from "./pinned/PinnedDialog";
+import { toSentenceCase } from "../utils";
+import { useCategory } from "../context";
 
 interface MenuProps {
   isMenuOpen: boolean;
@@ -26,13 +28,10 @@ interface MenuProps {
 
 const MenuList = ({ isMenuOpen }: MenuProps) => {
   const [isListOpen, setIsListOpen] = useState(true);
-  const { categories, fetchCategories } = useCategories();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { categories } = useCategory();
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [isPinnedDialogOpen, setIsPinnedDialogOpen] = useState(false);
   const shouldExpand = isMenuOpen && isListOpen;
-
-  useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
 
   const handleListClick = () => {
     setIsListOpen(!isListOpen);
@@ -62,7 +61,7 @@ const MenuList = ({ isMenuOpen }: MenuProps) => {
               <ListItemText primary={toSentenceCase(category.name)} />
             </ListItem>
           ))}
-          <ListItemButton onClick={() => setIsModalOpen(true)}>
+          <ListItemButton onClick={() => setIsCategoryModalOpen(true)}>
             <ListItemText
               primary={
                 <Box component="span" display="flex" alignItems="center">
@@ -76,8 +75,8 @@ const MenuList = ({ isMenuOpen }: MenuProps) => {
           </ListItemButton>
         </List>
         <AddCategoryModal
-          isModalOpen={isModalOpen}
-          handleModalClose={() => setIsModalOpen(false)}
+          isModalOpen={isCategoryModalOpen}
+          handleModalClose={() => setIsCategoryModalOpen(false)}
         />
       </Collapse>
       <ListItemButton>
@@ -86,6 +85,16 @@ const MenuList = ({ isMenuOpen }: MenuProps) => {
         </ListItemIcon>
         <Link href="/add-service">Add service</Link>
       </ListItemButton>
+      <ListItemButton onClick={() => setIsPinnedDialogOpen(true)}>
+        <ListItemIcon>
+          <PushPin />
+        </ListItemIcon>
+        <ListItemText primary="Pinned Services" />
+      </ListItemButton>
+      <PinnedDialog
+        isDialogOpen={isPinnedDialogOpen}
+        handleDialogClose={() => setIsPinnedDialogOpen(false)}
+      />
     </List>
   );
 };

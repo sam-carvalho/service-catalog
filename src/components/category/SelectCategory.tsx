@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Autocomplete, TextField, Button, Box } from "@mui/material";
-import useCategories from "../../hooks/useCategories";
+import React, { useState } from "react";
+import { Autocomplete, TextField, Button } from "@mui/material";
+import { useCategory } from "../../context";
 import AddCategoryModal from "./AddCategoryModal";
-import { Category } from "src/interfaces";
+import { Category } from "../../interfaces";
 
 interface SelectCategoryProps {
   selectedCategory: Category | null;
@@ -22,11 +22,7 @@ const SelectCategory = ({
 }: SelectCategoryProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [newCategoryName, setNewCategoryName] = useState<string>("");
-  const { categories, fetchCategories } = useCategories();
-
-  useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
+  const { categories } = useCategory();
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
