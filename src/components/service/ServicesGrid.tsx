@@ -7,7 +7,7 @@ import {
   CardActionArea,
   Typography,
 } from "@mui/material";
-import { useCategory, useService } from "../context";
+import { useCategory, useService } from "../../context";
 
 const ServicesGrid = () => {
   const { categories } = useCategory();

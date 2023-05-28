@@ -57,7 +57,7 @@ const PinnedDialog = ({
     <Dialog
       open={isDialogOpen}
       onClose={handleDialogClose}
-      data-testid="pinned-services-modal"
+      data-testid="pinned-services-dialog"
     >
       <DialogTitle fontSize={16}>Edit pinned services</DialogTitle>
       <DialogContent dividers>
