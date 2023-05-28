@@ -7,12 +7,11 @@ import {
   CardActionArea,
   Typography,
 } from "@mui/material";
-import useServices from "../hooks/useServices";
-import { useCategory } from "../context";
+import { useCategory, useService } from "../context";
 
 const ServicesGrid = () => {
   const { categories } = useCategory();
-  const { services } = useServices();
+  const { services } = useService();
 
   const groupedServices = categories.map((category) => ({
     category,

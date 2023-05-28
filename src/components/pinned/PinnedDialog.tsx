@@ -15,8 +15,7 @@ import {
 import { Service } from "../../interfaces";
 import { Search } from "@mui/icons-material";
 import usePinnedServices from "../../hooks/usePinnedServices";
-import useServices from "../../hooks/useServices";
-import { usePinned } from "../../context";
+import { usePinned, useService } from "../../context";
 
 interface PinnedDialogProps {
   isDialogOpen: boolean;
@@ -28,7 +27,7 @@ const PinnedDialog = ({
   handleDialogClose,
 }: PinnedDialogProps) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { services } = useServices();
+  const { services } = useService();
   const { addPinnedService } = usePinnedServices();
   const { pinnedServices, setPinnedServices } = usePinned();
   const [selectedServices, setSelectedServices] =
