@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   Button,
@@ -16,7 +16,7 @@ import { Service } from "../../interfaces";
 import { Search } from "@mui/icons-material";
 import usePinnedServices from "../../hooks/usePinnedServices";
 import useServices from "../../hooks/useServices";
-import { fetchPinnedServices } from "../../services";
+import { usePinned } from "../../context";
 
 interface PinnedDialogProps {
   isDialogOpen: boolean;
@@ -27,22 +27,12 @@ const PinnedDialog = ({
   isDialogOpen,
   handleDialogClose,
 }: PinnedDialogProps) => {
-  const [selectedServices, setSelectedServices] = useState<Service[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const { services } = useServices();
   const { addPinnedService } = usePinnedServices();
-  //const { setPinnedServices } = usePinServices();
-
-  useEffect(() => {
-    const updateCheckedPinnedServices = async () => {
-      if (isDialogOpen) {
-        const pinnedServices = await fetchPinnedServices();
-        setSelectedServices(pinnedServices);
-      }
-    };
-
-    updateCheckedPinnedServices();
-  }, [isDialogOpen]);
+  const { pinnedServices, setPinnedServices } = usePinned();
+  const [selectedServices, setSelectedServices] =
+    useState<Service[]>(pinnedServices);
 
   const handleServiceSelect = (service: Service) => {
     if (selectedServices.some((s) => s.id === service.id)) {
@@ -55,7 +45,7 @@ const PinnedDialog = ({
   const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await addPinnedService(selectedServices ? selectedServices : []);
-    //setPinnedServices(selectedServices ? selectedServices : []);
+    setPinnedServices(selectedServices ? selectedServices : []);
     setSelectedServices([]);
     handleDialogClose();
   };
