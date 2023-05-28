@@ -9,9 +9,10 @@ import {
   Box,
 } from "@mui/material";
 import { Service } from "../../interfaces";
+import { usePinned } from "../../context";
 
 const PinnedGrid = () => {
-  const pinnedServices = [];
+  const { pinnedServices } = usePinned();
 
   return (
     <>
