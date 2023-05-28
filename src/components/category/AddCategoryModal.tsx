@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, TextField, Box, InputLabel } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import useCategories from "../../hooks/useCategories";
-import { useCategory } from "../../context/categories/CategoriesProvider";
+import { useCategory } from "../../context";
 import { Category } from "../../interfaces";
+import { fetchCategories } from "../../services";
 
 interface CategoryModalProps {
   isModalOpen: boolean;
@@ -23,7 +24,7 @@ const AddCategoryModal = ({
   setSelectedCategoryId,
 }: CategoryModalProps) => {
   const [newCategoryName, setNewCategoryName] = useState<string>("");
-  const { addCategory, fetchCategories } = useCategories();
+  const { addCategory } = useCategories();
   const { setCategories } = useCategory();
 
   useEffect(() => {

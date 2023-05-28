@@ -5,17 +5,17 @@ import useCategories from "../../hooks/useCategories";
 
 jest.mock("../../hooks/useCategories");
 
+jest.mock("../../services/fetchCategories");
+
 describe("AddCategoryModal", () => {
   const mockHandleModalClose = jest.fn();
   const mockSetSelectedCategory = jest.fn();
   const mockSetSelectedCategoryId = jest.fn();
   const mockAddCategory = jest.fn();
-  const mockFetchCategories = jest.fn();
 
   beforeEach(() => {
     (useCategories as jest.Mock).mockReturnValue({
       addCategory: mockAddCategory,
-      fetchCategories: mockFetchCategories,
     });
   });
 

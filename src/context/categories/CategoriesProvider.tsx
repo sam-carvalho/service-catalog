@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { CategoriesContext } from "./CategoriesContext";
-import useCategories from "../../hooks/useCategories";
+import { fetchCategories } from "../../services";
 import { Category } from "../../interfaces";
 
 interface CategoriesProviderProps {
@@ -11,7 +11,6 @@ export const CategoriesProvider: React.FC<CategoriesProviderProps> = ({
   children,
 }) => {
   const [categories, setCategories] = useState<Category[]>([]);
-  const { fetchCategories } = useCategories();
 
   useEffect(() => {
     const initializeCategories = async () => {
@@ -28,5 +27,3 @@ export const CategoriesProvider: React.FC<CategoriesProviderProps> = ({
     </CategoriesContext.Provider>
   );
 };
-
-export const useCategory = () => useContext(CategoriesContext);

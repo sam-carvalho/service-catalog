@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Autocomplete, TextField, Button, Box } from "@mui/material";
-import { useCategory } from "../../context/categories/CategoriesProvider";
+import { Autocomplete, TextField, Button } from "@mui/material";
+import { useCategory } from "../../context";
 import AddCategoryModal from "./AddCategoryModal";
-import { Category } from "src/interfaces";
+import { Category } from "../../interfaces";
 
 interface SelectCategoryProps {
   selectedCategory: Category | null;

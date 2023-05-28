@@ -1,2 +1,1 @@
-export * from "./pinnedServices/PinnedServicesProvider";
-export * from "./categories/CategoriesProvider";
+export * from "./categories";

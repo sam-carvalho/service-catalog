@@ -8,13 +8,11 @@ import {
   Typography,
 } from "@mui/material";
 import useServices from "../hooks/useServices";
-import { usePinServices, useCategory } from "../context";
-import PinnedGrid from "./pinned/PinnedGrid";
+import { useCategory } from "../context";
 
 const ServicesGrid = () => {
   const { categories } = useCategory();
   const { services } = useServices();
-  const { pinnedServices } = usePinServices();
 
   const groupedServices = categories.map((category) => ({
     category,
@@ -23,7 +21,6 @@ const ServicesGrid = () => {
 
   return (
     <>
-      <PinnedGrid pinnedServices={pinnedServices} />
       {groupedServices
         .filter((group) => group.services.length > 0)
         .map((group) => (

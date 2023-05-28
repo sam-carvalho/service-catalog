@@ -9,7 +9,6 @@ describe("SelectCategory", () => {
   const mockSetSelectedCategory = jest.fn();
   const mockSetSelectedCategoryId = jest.fn();
   const mockHandleCategoryChange = jest.fn();
-  const mockFetchCategories = jest.fn();
 
   const mockCategories = [
     { id: "1", name: "Category 1" },
@@ -19,7 +18,6 @@ describe("SelectCategory", () => {
   beforeEach(() => {
     (useCategories as jest.Mock).mockReturnValue({
       categories: mockCategories,
-      fetchCategories: mockFetchCategories,
     });
   });
 

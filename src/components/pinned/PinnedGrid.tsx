@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import {
   Grid,
   Card,
@@ -10,7 +10,9 @@ import {
 } from "@mui/material";
 import { Service } from "../../interfaces";
 
-const PinnedGrid = ({ pinnedServices }) => {
+const PinnedGrid = () => {
+  const pinnedServices = [];
+
   return (
     <>
       {pinnedServices.length > 0 && (

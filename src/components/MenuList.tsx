@@ -20,7 +20,7 @@ import Link from "next/link";
 import AddCategoryModal from "./category/AddCategoryModal";
 import PinnedDialog from "./pinned/PinnedDialog";
 import { toSentenceCase } from "../utils";
-import { useCategory } from "../context/categories/CategoriesProvider";
+import { useCategory } from "../context";
 
 interface MenuProps {
   isMenuOpen: boolean;

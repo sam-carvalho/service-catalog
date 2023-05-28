@@ -6,7 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Global } from "@emotion/react";
 import theme from "../styles/theme";
 import globalStyles from "../styles/globalStyles";
-import { PinnedServicesProvider, CategoriesProvider } from "../context";
+import { CategoriesProvider } from "../context";
 
 const AppShell = dynamic(() => import("../components/AppShell"), {
   ssr: false,
@@ -26,11 +26,9 @@ class MyApp extends App {
       <ThemeProvider theme={theme}>
         <Global styles={globalStyles} />
         <CategoriesProvider>
-          <PinnedServicesProvider>
-            <AppShell isMobile={isMobile}>
-              <Component {...pageProps} />
-            </AppShell>
-          </PinnedServicesProvider>
+          <AppShell isMobile={isMobile}>
+            <Component {...pageProps} />
+          </AppShell>
         </CategoriesProvider>
       </ThemeProvider>
     );

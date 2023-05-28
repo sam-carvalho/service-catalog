@@ -12,11 +12,11 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
+import { Service } from "../../interfaces";
 import { Search } from "@mui/icons-material";
-import { usePinServices } from "../../context/pinnedServices/PinnedServicesProvider";
 import usePinnedServices from "../../hooks/usePinnedServices";
 import useServices from "../../hooks/useServices";
-import { Service } from "../../interfaces";
+import { fetchPinnedServices } from "../../services";
 
 interface PinnedDialogProps {
   isDialogOpen: boolean;
@@ -29,18 +29,22 @@ const PinnedDialog = ({
 }: PinnedDialogProps) => {
   const [selectedServices, setSelectedServices] = useState<Service[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const { pinnedServices, setPinnedServices } = usePinServices();
-  const { addPinnedService } = usePinnedServices();
   const { services } = useServices();
+  const { addPinnedService } = usePinnedServices();
+  //const { setPinnedServices } = usePinServices();
 
   useEffect(() => {
-    if (isDialogOpen) {
-      setSelectedServices(pinnedServices);
-    }
-  }, [isDialogOpen, pinnedServices]);
+    const updateCheckedPinnedServices = async () => {
+      if (isDialogOpen) {
+        const pinnedServices = await fetchPinnedServices();
+        setSelectedServices(pinnedServices);
+      }
+    };
+
+    updateCheckedPinnedServices();
+  }, [isDialogOpen]);
 
   const handleServiceSelect = (service: Service) => {
-    console.log(service);
     if (selectedServices.some((s) => s.id === service.id)) {
       setSelectedServices(selectedServices.filter((s) => s.id !== service.id));
     } else {
@@ -51,7 +55,7 @@ const PinnedDialog = ({
   const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await addPinnedService(selectedServices ? selectedServices : []);
-    setPinnedServices(selectedServices ? selectedServices : []);
+    //setPinnedServices(selectedServices ? selectedServices : []);
     setSelectedServices([]);
     handleDialogClose();
   };

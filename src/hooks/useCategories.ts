@@ -1,9 +1,4 @@
 const useCategories = () => {
-  const fetchCategories = async () => {
-    const response = await fetch("/api/categories", { method: "GET" });
-    return await response.json();
-  };
-
   const addCategory = async (categoryName: string) => {
     try {
       const response = await fetch("/api/update-categories", {
@@ -20,7 +15,7 @@ const useCategories = () => {
     }
   };
 
-  return { fetchCategories, addCategory };
+  return { addCategory };
 };
 
 export default useCategories;
