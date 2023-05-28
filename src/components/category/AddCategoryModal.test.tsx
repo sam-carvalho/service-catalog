@@ -10,10 +10,12 @@ describe("AddCategoryModal", () => {
   const mockSetSelectedCategory = jest.fn();
   const mockSetSelectedCategoryId = jest.fn();
   const mockAddCategory = jest.fn();
+  const mockFetchCategories = jest.fn();
 
   beforeEach(() => {
     (useCategories as jest.Mock).mockReturnValue({
       addCategory: mockAddCategory,
+      fetchCategories: mockFetchCategories,
     });
   });
 
