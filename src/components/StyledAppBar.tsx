@@ -1,10 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { styled } from "@mui/material/styles";
 
 interface AppBarProps extends MuiAppBarProps {
   isMenuOpen: boolean;
   menuWidth: number;
+  children: ReactNode;
 }
 
 const AppBar = styled(MuiAppBar, {
