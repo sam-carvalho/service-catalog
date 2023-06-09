@@ -75,7 +75,9 @@ The Service Catalog app has exciting future plans and enhancements in the pipeli
 
 1. UI Revamp: The app's user interface will undergo a revamp to provide an enhanced and visually appealing experience. The new design style will draw inspiration from the popular Airbnb design style.
 2. Search Functionality: A search bar feature is currently in progress and will be implemented soon. Users will be able to search for specific services within the catalog.
+3. Delete and Edit: An option to delete and edit services and categories will be implemented soon to allow users to further customize their experience.
 3. Sort Services by Category: A sorting option will be added to allow users to sort services based on their respective categories, making it easier to navigate and find desired services.
+4. Dark Mode: Users will be able to switch between light and dark mode by using a toggle on the top of the page
 
 ## Project Management
 
