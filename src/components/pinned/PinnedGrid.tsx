@@ -24,16 +24,17 @@ const PinnedGrid = () => {
               <Grid item key={service.id}>
                 <Card
                   sx={{
-                    minWidth: 100,
-                    maxWidth: 180,
-                    maxHeight: 180,
+                    minWidth: "fit-content",
+                    maxWidth: 160,
+                    maxHeight: 200,
                     margin: 0,
+                    padding: 1,
                   }}
                 >
                   <CardActionArea href={service.url}>
                     <CardMedia
                       component="img"
-                      height="130"
+                      height="100%"
                       image={service.logo}
                       alt={service.name}
                     />

@@ -13,10 +13,14 @@ const ServicesGrid = () => {
   const { categories } = useCategory();
   const { services } = useService();
 
-  const groupedServices = categories.map((category) => ({
-    category,
-    services: services.filter((service) => service.categoryId === category.id),
-  }));
+  const groupedServices = Array.isArray(categories)
+    ? categories.map((category) => ({
+        category,
+        services: services.filter(
+          (service) => service.categoryId === category.id
+        ),
+      }))
+    : [];
 
   return (
     <>
@@ -30,16 +34,17 @@ const ServicesGrid = () => {
                 <Grid item key={service.id}>
                   <Card
                     sx={{
-                      minWidth: 100,
-                      maxWidth: 180,
-                      maxHeight: 180,
+                      minWidth: "fit-content",
+                      maxWidth: 160,
+                      maxHeight: 200,
                       margin: 0,
+                      padding: 1,
                     }}
                   >
                     <CardActionArea href={service.url}>
                       <CardMedia
                         component="img"
-                        height="130"
+                        height="100%"
                         image={service.logo}
                         alt={service.name}
                       />
@@ -47,7 +52,10 @@ const ServicesGrid = () => {
                     <CardContent sx={{ display: "flex", padding: 1 }}>
                       <Typography
                         variant="h6"
-                        sx={{ margin: "auto", textAlign: "center" }}
+                        sx={{
+                          margin: "auto",
+                          textAlign: "center",
+                        }}
                       >
                         {service.name}
                       </Typography>

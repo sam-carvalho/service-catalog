@@ -1,20 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import fs from "fs";
 import path from "path";
+import { getData } from "./utils";
+
+const storageOption = process.env.STORAGE;
+
+const servicesFilePath =
+  storageOption === "aws"
+    ? "data/services.json"
+    : path.join(process.cwd(), "data", "services.json");
 
 const getServices = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
-      const servicesFilePath = path.join(
-        process.cwd(),
-        "data",
-        "services.json"
-      );
-      let services = [];
-      if (fs.existsSync(servicesFilePath)) {
-        const servicesData = fs.readFileSync(servicesFilePath, "utf-8");
-        services = JSON.parse(servicesData);
-      }
+      const services = await getData(servicesFilePath);
       res.status(200).json(services);
     } catch (error) {
       res.status(500).json({ message: "Error getting services" });
