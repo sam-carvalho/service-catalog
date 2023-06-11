@@ -58,16 +58,39 @@ The current version of the Service Catalog app includes the following features:
 
 ## Data Storage
 
-The Service Catalog app employs a JSON-based data storage system to store service and category information. Rather than relying on a traditional database management system, the app utilizes JSON files for data persistence.
+The Service Catalog app supports two options for data storage: JSON files and AWS S3.
 
-By utilizing JSON files, the app offers a lightweight and straightforward approach to storing and retrieving data. The data is stored in a structured format within the JSON files, making it easy to read, write, and manipulate the information.
+### JSON Files
 
-The JSON files serve as a reliable means of data storage for the app, ensuring that service and category information remains persistent across different sessions and app restarts. They provide a flexible solution that can be easily modified and extended as per the evolving needs of the Service Catalog app.
+Locally, the app utilizes JSON files for data storage out of the box. When running the app locally, the JSON files are automatically created and used to store service and category information.
 
-Please note that as the app uses JSON files for data storage, it is essential to ensure proper file read and write permissions are granted to the app in the hosting environment. Additionally, it is recommended to regularly backup the JSON files to prevent data loss.
+Please ensure that the app has proper file read and write permissions in the hosting environment to enable data storage and retrieval. Additionally, it is recommended to regularly backup the JSON files to prevent data loss.
 
-Using JSON files for data storage offers a practical and accessible solution for managing service and category information within the Service Catalog app.
+### AWS S3
 
+For production or when hosting the app, you have the option to use AWS S3 for data storage. AWS S3 provides scalable, secure, and highly available object storage.
+
+To configure the app to use AWS S3, follow these steps:
+
+1. Set the following environment variables:
+   - `AWS_ACCESS_KEY_ID`: The AWS access key ID associated with your AWS account.
+   - `AWS_SECRET_ACCESS_KEY`: The AWS secret access key associated with your AWS account.
+   - `BUCKET_NAME`: The name of the AWS S3 bucket to use for storing the app's data.
+   - `STORAGE`: Set this variable to `aws` to enable AWS S3 storage.
+
+2. Grant the necessary permissions to the app in your AWS account. Ensure that the IAM user associated with the access key ID and secret access key has the appropriate permissions to access and modify objects in the specified S3 bucket.
+
+With the environment variables set and the necessary permissions configured, the app will use AWS S3 as the data storage solution. Data will be stored in the specified S3 bucket, allowing for seamless scalability and reliable data persistence.
+
+For detailed instructions on setting up an S3 bucket and configuring IAM permissions, you can refer to the following article: [Setting Up an S3 Bucket for Service Catalog App](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html)
+
+Please note that when using AWS S3, the app requires a stable internet connection and the proper AWS credentials to access the S3 bucket.
+
+Using JSON files for data storage is suitable for local development and small-scale deployments, while AWS S3 offers a robust and scalable solution for production environments with increased data volumes and reliability requirements.
+
+Choose the data storage option that best fits your needs based on the deployment environment and anticipated usage patterns of the Service Catalog app.
+
+If you have any questions or need further assistance with data storage configuration, please don't hesitate to reach out.
 
 ## Future Plans
 

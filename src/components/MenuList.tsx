@@ -16,7 +16,6 @@ import {
   AddCircleOutline,
   PushPin,
 } from "@mui/icons-material";
-import Link from "next/link";
 import AddCategoryModal from "./category/AddCategoryModal";
 import PinnedDialog from "./pinned/PinnedDialog";
 import ServiceDialog from "./service/ServiceDialog";
@@ -58,11 +57,13 @@ const MenuList = ({ isMenuOpen }: MenuProps) => {
       </ListItemButton>
       <Collapse in={shouldExpand} timeout="auto" unmountOnExit>
         <List component="div" sx={{ pl: "55px" }}>
-          {categories.map((category) => (
-            <ListItem key={category.id}>
-              <ListItemText primary={toSentenceCase(category.name)} />
-            </ListItem>
-          ))}
+          {Array.isArray(categories) &&
+            categories.length > 0 &&
+            categories.map((category) => (
+              <ListItem key={category.id}>
+                <ListItemText primary={toSentenceCase(category.name)} />
+              </ListItem>
+            ))}
           <ListItemButton onClick={() => setIsCategoryModalOpen(true)}>
             <ListItemText
               primary={

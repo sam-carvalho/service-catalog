@@ -3,7 +3,7 @@ import { Service } from "../interfaces";
 const usePinnedServices = () => {
   const addPinnedService = async (services: Service[]) => {
     try {
-      const response = await fetch("/api/update-pinned", {
+      const response = await fetch("/api/add-pinned", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

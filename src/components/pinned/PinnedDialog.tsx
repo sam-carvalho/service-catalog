@@ -80,27 +80,30 @@ const PinnedDialog = ({
         />
         <form onSubmit={handleSave} style={{ margin: 5, paddingTop: 5 }}>
           <FormGroup>
-            {services
-              .filter((service) =>
-                service.name.toLowerCase().startsWith(searchTerm.toLowerCase())
-              )
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((service: Service) => (
-                <FormControlLabel
-                  key={service.id}
-                  control={
-                    <Checkbox
-                      checked={selectedServices.some(
-                        (s) => s.id === service.id
-                      )}
-                      onChange={() => handleServiceSelect(service)}
-                      size="small"
-                      style={{ padding: 5, marginLeft: 2 }}
-                    />
-                  }
-                  label={service.name}
-                />
-              ))}
+            {Array.isArray(services) &&
+              services
+                .filter((service) =>
+                  service.name
+                    .toLowerCase()
+                    .startsWith(searchTerm.toLowerCase())
+                )
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((service: Service) => (
+                  <FormControlLabel
+                    key={service.id}
+                    control={
+                      <Checkbox
+                        checked={selectedServices.some(
+                          (s) => s.id === service.id
+                        )}
+                        onChange={() => handleServiceSelect(service)}
+                        size="small"
+                        style={{ padding: 5, marginLeft: 2 }}
+                      />
+                    }
+                    label={service.name}
+                  />
+                ))}
           </FormGroup>
           <DialogActions sx={{ padding: 0, margin: 0 }}>
             <Button type="submit" variant="contained" size="small">
