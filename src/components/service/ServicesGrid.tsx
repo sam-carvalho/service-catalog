@@ -67,19 +67,18 @@ const ServicesGrid = () => {
                           image={service.logo}
                           alt={service.name}
                         />
-
-                        <CardContent sx={{ display: "flex", padding: 1 }}>
-                          <Typography
-                            variant="h6"
-                            sx={{
-                              margin: "auto",
-                              textAlign: "center",
-                            }}
-                          >
-                            {service.name}
-                          </Typography>
-                        </CardContent>
                       </CardActionArea>
+                      <CardContent sx={{ display: "flex", padding: 1 }}>
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            margin: "auto",
+                            textAlign: "center",
+                          }}
+                        >
+                          {service.name}
+                        </Typography>
+                      </CardContent>
                     </Card>
                   </Grid>
                 ))}
