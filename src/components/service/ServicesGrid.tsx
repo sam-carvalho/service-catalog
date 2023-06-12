@@ -18,7 +18,10 @@ const ServicesGrid = () => {
   useEffect(() => {
     if (searchQuery) {
       const filteredServices = services.filter((service) =>
-        service.name.toLowerCase().includes(searchQuery.toLowerCase())
+        service.name
+          .toLowerCase()
+          .replace(/-/g, "")
+          .includes(searchQuery.toLowerCase().replace(/-/g, ""))
       );
       setSearchResults(filteredServices);
     } else {
