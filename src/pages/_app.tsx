@@ -10,6 +10,7 @@ import {
   CategoriesProvider,
   PinnedServicesProvider,
   ServicesProvider,
+  SearchProvider,
 } from "../context";
 
 const AppShell = dynamic(() => import("../components/AppShell"), {
@@ -29,15 +30,17 @@ class MyApp extends App {
     return (
       <ThemeProvider theme={theme}>
         <Global styles={globalStyles} />
-        <CategoriesProvider>
-          <PinnedServicesProvider>
-            <ServicesProvider>
-              <AppShell isMobile={isMobile}>
-                <Component {...pageProps} />
-              </AppShell>
-            </ServicesProvider>
-          </PinnedServicesProvider>
-        </CategoriesProvider>
+        <SearchProvider>
+          <CategoriesProvider>
+            <PinnedServicesProvider>
+              <ServicesProvider>
+                <AppShell isMobile={isMobile}>
+                  <Component {...pageProps} />
+                </AppShell>
+              </ServicesProvider>
+            </PinnedServicesProvider>
+          </CategoriesProvider>
+        </SearchProvider>
       </ThemeProvider>
     );
   }

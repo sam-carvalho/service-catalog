@@ -9,14 +9,15 @@ import {
   Box,
 } from "@mui/material";
 import { Service } from "../../interfaces";
-import { usePinned } from "../../context";
+import { usePinned, useSearch } from "../../context";
 
 const PinnedGrid = () => {
   const { pinnedServices } = usePinned();
+  const { searchQuery } = useSearch();
 
   return (
     <>
-      {pinnedServices.length > 0 && (
+      {!searchQuery && pinnedServices.length > 0 && (
         <Box>
           <h4>Pinned</h4>
           <Grid container spacing={2}>
@@ -38,15 +39,15 @@ const PinnedGrid = () => {
                       image={service.logo}
                       alt={service.name}
                     />
-                    <CardContent sx={{ display: "flex", padding: 1 }}>
-                      <Typography
-                        variant="h6"
-                        sx={{ margin: "auto", textAlign: "center" }}
-                      >
-                        {service.name}
-                      </Typography>
-                    </CardContent>
                   </CardActionArea>
+                  <CardContent sx={{ display: "flex", padding: 1 }}>
+                    <Typography
+                      variant="h6"
+                      sx={{ margin: "auto", textAlign: "center" }}
+                    >
+                      {service.name}
+                    </Typography>
+                  </CardContent>
                 </Card>
               </Grid>
             ))}

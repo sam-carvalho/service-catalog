@@ -2,6 +2,7 @@ import React from 'react';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { alpha, styled } from '@mui/material/styles';
+import { useSearch } from "../context";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -44,20 +45,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const SearchBar = () => {
-    return (
-      <Search data-testid="search-bar">
-        <SearchIconWrapper data-testid="search-icon">
-          <SearchIcon color="action" />
-        </SearchIconWrapper>
-        <StyledInputBase
-          fullWidth
-          placeholder="Search"
-          inputProps={{ "aria-label": "search" }}
-          data-testid="search-input"
-          type="search"
-        />
-      </Search>
-    );
+  const { searchQuery, setSearchQuery } = useSearch();
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  return (
+    <Search data-testid="search-bar">
+      <SearchIconWrapper data-testid="search-icon">
+        <SearchIcon color="action" />
+      </SearchIconWrapper>
+      <StyledInputBase
+        fullWidth
+        placeholder="Search"
+        inputProps={{ "aria-label": "search" }}
+        data-testid="search-input"
+        type="search"
+        value={searchQuery}
+        onChange={(e) => handleSearch(e.target.value)}
+      />
+    </Search>
+  );
 };
 
 export default SearchBar;

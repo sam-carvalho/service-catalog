@@ -37,14 +37,17 @@ This will compile the project and start the app on a local development server. Y
 
 **Note:** Make sure you have Node.js and yarn installed on your machine before running the app.
 
-## Technologies Used
+## Technologies and Patterns Used
 
-The app is built using the following technologies:
+The app is built using the following technologies and patterns:
 
-React
-Next.js
-TypeScript
-Material-UI (MUI)
+- React
+- Next.js
+- TypeScript
+- Material-UI (MUI)
+- App Shell Pattern
+- React Provider Pattern
+
 For testing, the app utilizes the Jest framework.
 
 ## Features
@@ -53,8 +56,9 @@ The current version of the Service Catalog app includes the following features:
 
 1. Service Management: Users can add new services to the catalog and categorize them.
 2. Category Management: Users can create and manage categories for organizing services.
-3. User Interface: The app has a clean and intuitive user interface built using Material-UI, ensuring a smooth user experience.
-4. Testing: The app includes a comprehensive test suite using Jest, ensuring reliable functionality.
+3. Search: Users can search for specific services within the catalog.
+4. User Interface: The app has a clean and intuitive user interface built using Material-UI, ensuring a smooth user experience.
+5. Testing: The app includes a comprehensive test suite using Jest, ensuring reliable functionality.
 
 ## Data Storage
 
@@ -97,8 +101,7 @@ If you have any questions or need further assistance with data storage configura
 The Service Catalog app has exciting future plans and enhancements in the pipeline. Here are some features and improvements that will be added:
 
 1. UI Revamp: The app's user interface will undergo a revamp to provide an enhanced and visually appealing experience. The new design style will draw inspiration from the popular Airbnb design style.
-2. Search Functionality: A search bar feature is currently in progress and will be implemented soon. Users will be able to search for specific services within the catalog.
-3. Delete and Edit: An option to delete and edit services and categories will be implemented soon to allow users to further customize their experience.
+2. Delete and Edit: An option to delete and edit services and categories will be implemented soon to allow users to further customize their experience.
 3. Sort Services by Category: A sorting option will be added to allow users to sort services based on their respective categories, making it easier to navigate and find desired services.
 4. Dark Mode: Users will be able to switch between light and dark mode by using a toggle on the top of the page
 
