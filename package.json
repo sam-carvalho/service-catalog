@@ -1,29 +1,30 @@
 {
   "name": "service-catalog",
   "version": "1.0.0",
-  "description": "A catalog of services",
-  "private": "true",
+  "main": "index.js",
+  "repository": "https://github.com/sam-carvalho/service-catalog.git",
+  "author": "Samantha Carvalho <samantha.s.carvalho@outlook.com>",
   "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "test": "jest",
-    "lint": "next lint"
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "dev": "turbo run dev --filter=service-catalog"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.11.16",
-    "@mui/material": "^5.12.3",
     "aws-sdk": "^2.1395.0",
-    "formidable": "^2.1.1",
     "next": "^13.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "turbo": "^1.10.16",
     "@babel/core": "^7.21.8",
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-react": "^7.18.6",
@@ -32,7 +33,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
-    "@types/formidable": "^2.0.6",
     "@types/jest": "^29.5.1",
     "@types/node": "^20.1.0",
     "@types/react-dom": "^18.2.4",
@@ -47,6 +47,5 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
     "ua-parser-js": "^1.0.35"
-  },
-  "preferYarn": true
+  }
 }

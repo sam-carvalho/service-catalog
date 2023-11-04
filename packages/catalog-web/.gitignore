@@ -9,6 +9,11 @@
 # production
 /build
 
+# next.js
+/.next_export/
+/.next/
+/out/
+
 # misc
 .DS_Store
 
@@ -39,5 +44,5 @@ dist
 # data files
 /data
 
-# turbo
-.turbo
+# logo files
+/public/logos
