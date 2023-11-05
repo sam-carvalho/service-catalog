@@ -1,0 +1,62 @@
+name: Deploy and test
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "ci-${{ github.head_ref || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "yarn"
+
+      - name: Cache Turbo
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/.next/cache
+            .turbo
+          key: ${{ runner.os }}-turbo-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Run Turbo Build
+        run: yarn turbo run build
+        env:
+          CI: true
+
+      - name: Run Turbo Test
+        run: yarn turbo run test -- --coverage
+        env:
+          CI: true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+
+      - name: Run Turbo Lint
+        run: yarn turbo run lint
+        env:
+          CI: true

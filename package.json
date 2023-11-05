@@ -14,7 +14,7 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "dev": "turbo run dev --filter=service-catalog"
+    "dev": "turbo run dev"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.441.0",

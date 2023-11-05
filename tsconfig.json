@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "jsx": "react",
     "lib": ["esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -9,11 +8,13 @@
     "module": "commonjs",
     "target": "es2017",
     "moduleResolution": "node",
+    "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
       "@/*": ["packages/*/src"]
     },
-    "strict": false
+    "strict": false,
+    "outDir": "./dist"
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }

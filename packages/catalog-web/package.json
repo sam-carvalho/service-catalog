@@ -1,7 +1,6 @@
 {
-  "name": "service-catalog",
+  "name": "catalog-web",
   "version": "1.0.0",
-  "description": "A catalog of services",
   "private": true,
   "license": "MIT",
   "scripts": {
