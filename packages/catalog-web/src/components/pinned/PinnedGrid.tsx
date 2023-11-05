@@ -20,7 +20,7 @@ const PinnedGrid = () => {
       {!searchQuery && pinnedServices.length > 0 && (
         <Box>
           <h4>Pinned</h4>
-          <Grid container spacing={2}>
+          <Grid container spacing={2.5}>
             {pinnedServices.map((service: Service) => (
               <Grid item key={service.id}>
                 <Card
