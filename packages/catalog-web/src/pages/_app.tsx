@@ -1,7 +1,6 @@
 import React from "react";
 import App from "next/app";
 import dynamic from "next/dynamic";
-import { getDeviceType } from "src/utils";
 import { ThemeProvider } from "@mui/material/styles";
 import { Global } from "@emotion/react";
 import theme from "../styles/theme";
@@ -12,6 +11,7 @@ import {
   ServicesProvider,
   SearchProvider,
 } from "../context";
+import { getDeviceType } from "../utils";
 
 const AppShell = dynamic(() => import("../components/AppShell"), {
   ssr: false,

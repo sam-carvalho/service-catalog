@@ -1,5 +1,5 @@
 # dependencies
-/node_modules
+node_modules
 /.pnp
 .pnp.js
 
@@ -41,3 +41,7 @@ dist
 
 # turbo
 .turbo
+
+.serverless
+*.log
+*.tsbuildinfo

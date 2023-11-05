@@ -1,0 +1,95 @@
+service: catalog-services
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: dev
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-1:*:table/ServicesTable"
+
+functions:
+  addServices:
+    handler: dist/handlers/addServices.handler
+    events:
+      - http:
+          path: services
+          method: put
+          cors: true
+  listServices:
+    handler: dist/handlers/listServices.handler
+    events:
+      - http:
+          path: services
+          method: get
+          cors: true
+  listPinnedServices:
+    handler: dist/handlers/listPinnedServices.handler
+    events:
+      - http:
+          path: pinned-services
+          method: get
+          cors: true
+  updateService:
+    handler: dist/handlers/updateServices.handler
+    events:
+      - http:
+          path: services
+          method: post
+          cors: true
+  deleteService:
+    handler: dist/handlers/deleteServices.handler
+    events:
+      - http:
+          path: services
+          method: delete
+          cors: true
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+
+resources:
+  Resources:
+    ServicesTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ServicesTable
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: isPinned
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        GlobalSecondaryIndexes:
+          - IndexName: PinnedIndex
+            KeySchema:
+              - AttributeName: isPinned
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
