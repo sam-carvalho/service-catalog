@@ -4,4 +4,5 @@ export interface Service {
   url: string;
   logo?: string;
   categoryId?: string;
+  isPinned: string;
 }

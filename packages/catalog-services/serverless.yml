@@ -38,18 +38,25 @@ functions:
           path: pinned-services
           method: get
           cors: true
+  updatePinnedServices:
+    handler: dist/handlers/updatePinnedServices.handler
+    events:
+      - http:
+          path: services/pin
+          method: put
+          cors: true
   updateService:
     handler: dist/handlers/updateServices.handler
     events:
       - http:
-          path: services
+          path: services/{id}
           method: post
           cors: true
   deleteService:
     handler: dist/handlers/deleteServices.handler
     events:
       - http:
-          path: services
+          path: services/{id}
           method: delete
           cors: true
 

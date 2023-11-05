@@ -28,7 +28,7 @@ const PinnedDialog = ({
 }: PinnedDialogProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const { services } = useService();
-  const { addPinnedService } = usePinnedServices();
+  const { updatePinnedStatus } = usePinnedServices();
   const { pinnedServices, setPinnedServices } = usePinned();
   const [selectedServices, setSelectedServices] =
     useState<Service[]>(pinnedServices);
@@ -43,7 +43,7 @@ const PinnedDialog = ({
 
   const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await addPinnedService(selectedServices ? selectedServices : []);
+    await updatePinnedStatus(selectedServices ? selectedServices : []);
     setPinnedServices(selectedServices ? selectedServices : []);
     setSelectedServices([]);
     handleDialogClose();
