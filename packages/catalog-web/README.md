@@ -57,9 +57,3 @@ The current version of the Service Catalog app includes the following features:
 3. Search: Users can search for specific services within the catalog.
 4. User Interface: The app has a clean and intuitive user interface built using Material-UI, ensuring a smooth user experience.
 5. Testing: The app includes a comprehensive test suite using Jest, ensuring reliable functionality.
-
-## Feedback and Contributions
-
-We welcome any feedback or contributions to enhance the Service Catalog app. If you have any suggestions, issues, or ideas, please feel free to open an issue or submit a pull request on the GitHub repository.
-
-Thank you for your interest in the Service Catalog app! We hope you find it useful and enjoy using it.

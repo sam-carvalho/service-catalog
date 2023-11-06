@@ -111,7 +111,3 @@ The app's design is created using Figma, a collaborative design tool. You can ac
 We welcome any feedback or contributions to enhance the Service Catalog app. If you have any suggestions, issues, or ideas, please feel free to open an issue or submit a pull request on the GitHub repository.
 
 Thank you for your interest in the Service Catalog app! We hope you find it useful and enjoy using it.
-
-```
-
-```
