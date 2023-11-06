@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "dev": "serverless offline",
     "build": "tsc",
     "deploy": "npm run build && serverless deploy"
   },
