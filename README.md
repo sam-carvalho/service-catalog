@@ -6,6 +6,10 @@ Welcome to the Service Catalog monorepo. This project is composed of several mic
 
 This project is designed to showcase a service catalog system, built using a microservices architecture pattern and a modern frontend application. The backend is powered by AWS serverless technologies like Lambda and DynamoDB, while the frontend is a React application using Next.js.
 
+## Monorepo Management with Turbo Repo
+
+[Turbo Repo](https://turbo.build/repo) to manage our monorepo, which includes tools for efficiently handling builds, testing, and dependencies across multiple packages within this repository. Turbo ensures consistent and fast builds by leveraging caching and task orchestration.
+
 ## Structure
 
 The repository is structured as follows:
