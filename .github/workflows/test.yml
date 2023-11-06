@@ -1,4 +1,4 @@
-name: Deploy and test
+name: Lint and Test
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "18"
           cache: "yarn"
 
       - name: Cache Turbo
@@ -42,11 +42,6 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install --immutable
-
-      - name: Run Turbo Build
-        run: yarn turbo run build
-        env:
-          CI: true
 
       - name: Run Turbo Test
         run: yarn turbo run test -- --coverage
