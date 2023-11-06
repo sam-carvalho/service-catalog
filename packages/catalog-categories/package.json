@@ -1,0 +1,16 @@
+{
+  "name": "catalog-categories",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "deploy": "npm run build && serverless deploy"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.6"
+  },
+  "dependencies": {
+    "uuid": "^9.0.1"
+  }
+}

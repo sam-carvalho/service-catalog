@@ -1,0 +1,17 @@
+{
+  "name": "catalog-services",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "serverless offline",
+    "build": "tsc",
+    "deploy": "npm run build && serverless deploy"
+  },
+  "dependencies": {
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.6"
+  }
+}

@@ -1,5 +1,5 @@
 # dependencies
-node_modules
+/node_modules
 /.pnp
 .pnp.js
 
@@ -8,6 +8,11 @@ node_modules
 
 # production
 /build
+
+# next.js
+/.next_export/
+/.next/
+/out/
 
 # misc
 .DS_Store
@@ -39,9 +44,5 @@ dist
 # data files
 /data
 
-# turbo
-.turbo
-
-.serverless
-*.log
-*.tsbuildinfo
+# logo files
+/public/logos

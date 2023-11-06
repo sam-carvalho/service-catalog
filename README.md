@@ -1,100 +1,92 @@
-# Service Catalog App
+# Service Catalog Monorepo
 
-This is a service catalog app that allows users to add and categorize services. It provides a user-friendly interface for managing services and organizing them into different categories. This README provides an overview of the app, its features, technologies used, how to run the app and future plans.
+Welcome to the Service Catalog monorepo. This project is composed of several microservices and a front-end application that together provide a comprehensive solution for service management and categorization.
 
-## How to Run the App
+## Overview
 
-To run the Service Catalog app locally on your machine, follow the steps below:
+This project is designed to showcase a service catalog system, built using a microservices architecture pattern and a modern frontend application. The backend is powered by AWS serverless technologies like Lambda and DynamoDB, while the frontend is a React application using Next.js.
 
-1. **Clone the repository:** Start by cloning the GitHub repository to your local machine using the following command:
+## Monorepo Management with Turbo Repo
+
+[Turbo Repo](https://turbo.build/repo) to manage our monorepo, which includes tools for efficiently handling builds, testing, and dependencies across multiple packages within this repository. Turbo ensures consistent and fast builds by leveraging caching and task orchestration.
+
+## Structure
+
+The repository is structured as follows:
+
+- `/catalog-services`: Contains the microservice for managing services.
+- `/catalog-categories`: Contains the microservice for managing categories.
+- `/catalog-web`: The frontend React application that provides the user interface for the service catalog.
+
+Each directory has its own README.md providing detailed instructions on setup, configuration, and usage.
+
+## Getting Started
+
+To get started with this project, you should clone the repository and follow the setup instructions for each component:
 
 ```sh
 git clone https://github.com/sam-carvalho/service-catalog.git
-```
-
-2. **Navigate to the project directory:** Move into the project directory using the following command:
-
-```sh
 cd service-catalog
 ```
 
-3. **Install dependencies:** Install the required dependencies by running the following command:
+## Technologies
+
+- Frontend: React.js, Next.js, Material-UI
+- Backend: Node.js, AWS Lambda, DynamoDB
+- Deployment: AWS CloudFormation, Serverless Framework
+
+## AWS Configuration
+
+Before deploying a microservice to AWS, you need to configure your AWS credentials. If you have the AWS CLI installed, you can configure it by running:
 
 ```sh
-yarn install
+aws configure
 ```
 
-4. **Start the development server:** Once the dependencies are installed, start the development server with the following command:
+You'll be prompted to enter your AWS Access Key ID, Secret Access Key, region, and output format. These credentials will be used by the Serverless framework to deploy your functions to AWS Lambda.
 
-```sh
-yarn dev
-```
+Your AWS account must have an IAM role with the following permissions for the microservice to function correctly:
 
-This will compile the project and start the app on a local development server. You should see a message indicating the server is running and listening on a specific port (e.g., http://localhost:3000).
+DynamoDB:PutItem: To allow the service to add new records to the DynamoDB table.
+DynamoDB:Scan, DynamoDB:Query: To allow the service to read data from the DynamoDB table.
+DynamoDB:UpdateItem: To allow the service to update records in the DynamoDB table.
+DynamoDB:DeleteItem: To allow the service to delete records from the DynamoDB table.
 
-5. **Access the app:** Open your web browser and navigate to the provided URL (e.g., http://localhost:3000). The Service Catalog app should now be accessible, and you can start exploring and using its features.
-
-
-**Note:** Make sure you have Node.js and yarn installed on your machine before running the app.
-
-## Technologies and Patterns Used
-
-The app is built using the following technologies and patterns:
-
-- React
-- Next.js
-- TypeScript
-- Material-UI (MUI)
-- App Shell Pattern
-- React Provider Pattern
-
-For testing, the app utilizes the Jest framework.
-
-## Features
-
-The current version of the Service Catalog app includes the following features:
-
-1. Service Management: Users can add new services to the catalog and categorize them.
-2. Category Management: Users can create and manage categories for organizing services.
-3. Search: Users can search for specific services within the catalog.
-4. User Interface: The app has a clean and intuitive user interface built using Material-UI, ensuring a smooth user experience.
-5. Testing: The app includes a comprehensive test suite using Jest, ensuring reliable functionality.
+You can attach these permissions to the IAM role used by your Lambda functions.
 
 ## Data Storage
 
-The Service Catalog app supports two options for data storage: JSON files and AWS S3.
+DynamoDB is used to store and retrieve data that supports our service catalog functionality.
 
-### JSON Files
+### DynamoDB Tables
 
-Locally, the app utilizes JSON files for data storage out of the box. When running the app locally, the JSON files are automatically created and used to store service and category information.
+- ServicesTable: Stores information about various services that our catalog offers. Each item in the table represents a service with attributes such as id, name, url, logo, isPinned, and categoryId.
 
-Please ensure that the app has proper file read and write permissions in the hosting environment to enable data storage and retrieval. Additionally, it is recommended to regularly backup the JSON files to prevent data loss.
+- CategoriesTable: Contains the different categories under which services can be classified. Each item has a unique id and a name attribute.
 
-### AWS S3
+### Data Model
 
-For production or when hosting the app, you have the option to use AWS S3 for data storage. AWS S3 provides scalable, secure, and highly available object storage.
+Here's a high-level overview of the data model for the DynamoDB tables used by our microservices:
 
-To configure the app to use AWS S3, follow these steps:
+#### ServicesTable
 
-1. Set the following environment variables:
-   - `AWS_ACCESS_KEY_ID`: The AWS access key ID associated with your AWS account.
-   - `AWS_SECRET_ACCESS_KEY`: The AWS secret access key associated with your AWS account.
-   - `BUCKET_NAME`: The name of the AWS S3 bucket to use for storing the app's data.
-   - `STORAGE`: Set this variable to `aws` to enable AWS S3 storage.
+- id (String): Unique identifier for the service, generated using UUID.
+- name (String): Name of the service.
+- url (String): URL of the service.
+- logo (String): Link to the service's logo image.
+- isPinned (String): Indicates if the service is pinned for quick access.
+- categoryId (String): Identifier of the category this service belongs to.
 
-2. Grant the necessary permissions to the app in your AWS account. Ensure that the IAM user associated with the access key ID and secret access key has the appropriate permissions to access and modify objects in the specified S3 bucket.
+#### CategoriesTable
 
-With the environment variables set and the necessary permissions configured, the app will use AWS S3 as the data storage solution. Data will be stored in the specified S3 bucket, allowing for seamless scalability and reliable data persistence.
+- id (String): Unique identifier for the category, generated using UUID.
+- name (String): Name of the category.
 
-For detailed instructions on setting up an S3 bucket and configuring IAM permissions, you can refer to the following article: [Setting Up an S3 Bucket for Service Catalog App](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html)
+### Indexes
 
-Please note that when using AWS S3, the app requires a stable internet connection and the proper AWS credentials to access the S3 bucket.
+To optimize the read operations, especially queries and scans, secondary indexes are used:
 
-Using JSON files for data storage is suitable for local development and small-scale deployments, while AWS S3 offers a robust and scalable solution for production environments with increased data volumes and reliability requirements.
-
-Choose the data storage option that best fits your needs based on the deployment environment and anticipated usage patterns of the Service Catalog app.
-
-If you have any questions or need further assistance with data storage configuration, please don't hesitate to reach out.
+- Global Secondary Index (GSI) on the ServicesTable for querying pinned-services by using isPinned flag to efficiently list all pinned services.
 
 ## Future Plans
 
@@ -104,6 +96,7 @@ The Service Catalog app has exciting future plans and enhancements in the pipeli
 2. Delete and Edit: An option to delete and edit services and categories will be implemented soon to allow users to further customize their experience.
 3. Sort Services by Category: A sorting option will be added to allow users to sort services based on their respective categories, making it easier to navigate and find desired services.
 4. Dark Mode: Users will be able to switch between light and dark mode by using a toggle on the top of the page
+5. Backend enhancements: GSI on the ServicesTable for querying services by categoryId to efficiently list all services in a given category.
 
 ## Project Management
 
@@ -118,3 +111,7 @@ The app's design is created using Figma, a collaborative design tool. You can ac
 We welcome any feedback or contributions to enhance the Service Catalog app. If you have any suggestions, issues, or ideas, please feel free to open an issue or submit a pull request on the GitHub repository.
 
 Thank you for your interest in the Service Catalog app! We hope you find it useful and enjoy using it.
+
+```
+
+```
