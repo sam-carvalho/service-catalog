@@ -1,8 +1,6 @@
 const fetchPinnedServices = async () => {
-  const response = await fetch(
-    "https://1mk1vvbn2m.execute-api.us-east-1.amazonaws.com/dev/pinned-services",
-    { method: "GET" }
-  );
+  const apiUrl = process.env.NEXT_PUBLIC_SERVICES_API_URL;
+  const response = await fetch(`${apiUrl}/pinned-services`, { method: "GET" });
   return await response.json();
 };
 

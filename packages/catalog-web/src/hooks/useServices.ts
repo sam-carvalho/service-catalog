@@ -1,28 +1,22 @@
+import { Service } from "interfaces";
+
 const useServices = () => {
-  const addService = async (
-    serviceName: string,
-    serviceUrl: string,
-    serviceLogo: string,
-    categoryId: string,
-    isPinned: string
-  ) => {
+  const addService = async (service: Service) => {
+    const apiUrl = process.env.NEXT_PUBLIC_SERVICES_API_URL;
     try {
-      const response = await fetch(
-        "https://1mk1vvbn2m.execute-api.us-east-1.amazonaws.com/dev/services",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: serviceName,
-            url: serviceUrl,
-            logo: serviceLogo,
-            categoryId: categoryId,
-            isPinned: isPinned,
-          }),
-        }
-      );
+      const response = await fetch(`${apiUrl}/services`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: service.name,
+          url: service.url,
+          logo: service.logo,
+          categoryId: service.categoryId,
+          isPinned: service.isPinned,
+        }),
+      });
 
       return await response.json();
     } catch (error) {

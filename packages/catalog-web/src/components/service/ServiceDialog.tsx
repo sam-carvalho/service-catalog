@@ -56,7 +56,13 @@ const ServiceDialog = ({
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await addService(name, url, logoLocation, selectedCategoryId, "false");
+    await addService({
+      name,
+      url,
+      logo: logoLocation,
+      categoryId: selectedCategoryId,
+      isPinned: "false",
+    });
     handleDialogClose();
     clearForm();
 

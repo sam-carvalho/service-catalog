@@ -7,17 +7,16 @@ const usePinnedServices = () => {
       isPinned: service.isPinned === "true" ? "false" : "true",
     }));
 
+    const apiUrl = process.env.NEXT_PUBLIC_SERVICES_API_URL;
+
     try {
-      const response = await fetch(
-        "https://1mk1vvbn2m.execute-api.us-east-1.amazonaws.com/dev/services/pin",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(pinnedServices),
-        }
-      );
+      const response = await fetch(`${apiUrl}/services/pin`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(pinnedServices),
+      });
 
       return await response.json();
     } catch (error) {

@@ -18,6 +18,13 @@ cd service-catalog/packages/catalog-web
 yarn install
 ```
 
+3. **Set environment variables:** Follow the instructions in each microservices README to deploy a the APIs required by the frontend app. Then, set the API Gateway URLs as environment variables:
+
+```sh
+export NEXT_PUBLIC_SERVICES_API_URL = <URL>
+export NEXT_PUBLIC_CATEGORIES_API_URL = <URL>
+```
+
 3. **Start the development server:** Once the dependencies are installed, start the development server with the following command:
 
 ```sh
